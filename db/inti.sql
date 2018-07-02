@@ -166,3 +166,36 @@ BEGIN
 	RETURN (@NewCode + RIGHT('000000'+CONVERT(VARCHAR(7),@Identity),7))
 END
 GO
+
+/* 預存程序使用自訂資料表型態 */
+CREATE TYPE [Orders].[OrderDetails]
+	AS TABLE
+	(
+		[ProductNo]		INT,
+		[SellPrice]		SMALLMONEY,
+		[Quantity]		SMALLINT
+	)
+GO
+
+--取得指定商品型號的有效庫存
+CREATE FUNCTION [Products].[GetProductValidStorage]
+(
+	@Schema			VARCHAR(15)
+)
+RETURNS SMALLINT
+AS
+BEGIN
+	RETURN 0
+END
+GO
+
+--建立訂單的 StoredProcedure
+CREATE PROCEDURE [Orders].[AddOrder]
+	@MemberGUID		UNIQUEIDENTIFIER,
+	@Items 			[Orders].[OrderDetails] READONLY,
+	@IsSuccess		BIT OUT
+AS
+    SET @IsSuccess = 0
+
+    RETURN
+GO
