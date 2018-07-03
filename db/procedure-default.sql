@@ -81,7 +81,7 @@ AS
 				INNER JOIN [Products].[ProductMains] b ON a.[ProductNo] = b.[No]
 			WHERE (
 				(SELECT [Products].[GetProductValidStorage](b.[Schema])) - a.[Quantity]
-			) <= 0
+			) < 0
 		)
 		BEGIN
 			ROLLBACK
