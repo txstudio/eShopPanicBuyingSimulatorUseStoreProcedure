@@ -48,6 +48,9 @@ GO
 CREATE SCHEMA [Orders]
 GO
 
+CREATE SCHEMA [Events]
+GO
+
 --商品資料表
 CREATE TABLE [Products].[ProductMains]
 (
@@ -131,6 +134,19 @@ CREATE TABLE [Orders].[OrderDetails]
 )
 GO
 
+--事件紀錄資料表
+CREATE TABLE [Events].[EventBuying]
+(
+    [No]            INT IDENTITY(1,1),
+
+    [MemberGUID]    UNIQUEIDENTIFIER,
+    [Content]       NVARCHAR(500),
+    [IsSuccess]     BIT,
+
+    CONSTRAINT [pk_EventBuying] PRIMARY KEY ([No])
+)
+GO
+
 --取得新一筆訂單要儲存的訂單編號 (yyyyMMdd9999999)
 CREATE FUNCTION [Orders].[GetOrderSchema]()
 	RETURNS CHAR(15)
@@ -167,6 +183,25 @@ BEGIN
 END
 GO
 
+/* 新增一筆購買紀錄的 StoredProcedure */
+CREATE PROCEDURE [Events].[AddEventBuying]
+    @MemberGUID     UNIQUEIDENTIFIER,
+    @Content        NVARCHAR(500),
+    @IsSuccess      BIT
+AS
+
+    INSERT INTO [Events].[EventBuying] (
+        [MemberGUID]
+        ,[Content]
+        ,[IsSuccess]
+    ) VALUES (
+        @MemberGUID
+        ,@Content
+        ,@IsSuccess
+    )
+GO
+
+
 /* 預存程序使用自訂資料表型態 */
 CREATE TYPE [Orders].[OrderDetails]
 	AS TABLE
@@ -193,6 +228,7 @@ GO
 CREATE PROCEDURE [Orders].[AddOrder]
 	@MemberGUID		UNIQUEIDENTIFIER,
 	@Items 			[Orders].[OrderDetails] READONLY,
+    @OrderSchema    CHAR(15) OUT,
 	@IsSuccess		BIT OUT
 AS
     SET @IsSuccess = 0
