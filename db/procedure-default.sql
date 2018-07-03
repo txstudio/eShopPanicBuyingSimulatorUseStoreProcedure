@@ -127,6 +127,8 @@ AS
 	BEGIN CATCH	
 		ROLLBACK
 		
+		EXEC [Events].[AddEventDatabaseError] 
+		
 		SET @IsSuccess = 0
 	END CATCH
 GO
