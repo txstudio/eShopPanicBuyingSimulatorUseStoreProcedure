@@ -138,6 +138,7 @@ GO
 CREATE TABLE [Events].[EventBuying]
 (
     [No]            INT IDENTITY(1,1),
+    [EventTime]     DATETIMEOFFSET DEFAULT (SYSDATETIMEOFFSET()),
 
     [MemberGUID]    UNIQUEIDENTIFIER,
     [Content]       NVARCHAR(500),
@@ -146,6 +147,25 @@ CREATE TABLE [Events].[EventBuying]
     CONSTRAINT [pk_EventBuying] PRIMARY KEY ([No])
 )
 GO
+
+--儲存預存程序錯誤的事件紀錄資料表
+CREATE TABLE [Events].[EventDatabaseErrorLog] (
+	[No]                INT IDENTITY(1, 1),
+	[ErrorTime]         DATETIME DEFAULT (SYSDATETIMEOFFSET()),
+	[ErrorDatabase]     NVARCHAR(100),
+	[LoginName]         NVARCHAR(100),
+	[UserName]          NVARCHAR(128),
+	[ErrorNumber]       INT,
+	[ErrorSeverity]     INT,
+	[ErrorState]        INT,
+	[ErrorProcedure]    NVARCHAR(130),
+	[ErrorLine]         INT,
+	[ErrorMessage]      NVARCHAR(MAX),
+	
+    CONSTRAINT [PK_dbo_DatabaseErrorLog-0_No] PRIMARY KEY ([No] ASC)
+)
+GO
+
 
 --取得新一筆訂單要儲存的訂單編號 (yyyyMMdd9999999)
 CREATE FUNCTION [Orders].[GetOrderSchema]()
@@ -199,6 +219,57 @@ AS
         ,@Content
         ,@IsSuccess
     )
+GO
+
+CREATE PROCEDURE [Events].[AddEventDatabaseError] 
+    @No INT = 0 OUTPUT
+AS
+    DECLARE @seed INT
+
+    SET NOCOUNT ON
+
+    BEGIN TRY
+        IF ERROR_NUMBER() IS NULL
+        BEGIN
+            RETURN
+        END
+
+        --
+        --如果有進行中的交易正在使用時不進行記錄
+        -- (尚未 rollback 或 commit)
+        --
+        IF XACT_STATE() = (- 1)
+        BEGIN
+            RETURN
+        END
+
+        INSERT INTO [Events].[EventDatabaseErrorLog] (
+            [ErrorDatabase]
+            ,[LoginName]
+            ,[UserName]
+            ,[ErrorNumber]
+            ,[ErrorSeverity]
+            ,[ErrorState]
+            ,[ErrorProcedure]
+            ,[ErrorLine]
+            ,[ErrorMessage]
+            )
+        VALUES (
+            CONVERT(NVARCHAR(100), DB_NAME())
+            ,CONVERT(NVARCHAR(100), SYSTEM_USER)
+            ,CONVERT(NVARCHAR(128), CURRENT_USER)
+            ,ERROR_NUMBER()
+            ,ERROR_SEVERITY()
+            ,ERROR_STATE()
+            ,ERROR_PROCEDURE()
+            ,ERROR_LINE()
+            ,ERROR_MESSAGE()
+            )
+    END TRY
+
+    BEGIN CATCH
+        RETURN (- 1)
+    END CATCH
 GO
 
 
