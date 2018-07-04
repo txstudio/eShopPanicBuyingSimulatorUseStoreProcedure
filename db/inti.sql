@@ -88,13 +88,32 @@ CREATE TABLE [Products].[ProductStorages]
 GO
 
 INSERT INTO [Products].[ProductStorages] ([ProductNo],[Storage])
-	VALUES (1,15),(2,30),(3,25)
+	VALUES (1,75),(2,150),(3,125)
 GO
 
 --訂單資料表主索引鍵使用序列
 CREATE SEQUENCE [Orders].[OrderMainSeq]
 	START WITH 1
 	INCREMENT BY 1
+GO
+
+--訂單代碼流水序號使用的序列
+CREATE SEQUENCE [Orders].[OrderSchemaSeq]
+    START WITH 1
+    INCREMENT BY 1
+GO
+
+--取得新一筆訂單要儲存的訂單編號 (yyyyMMdd9999999)
+CREATE PROCEDURE [Orders].[GetOrderSchema]
+    @Schema     CHAR(15) OUT
+AS
+    DECLARE @NewCode CHAR(8)
+	DECLARE @Identity INT
+
+	SET @NewCode = CONVERT(VARCHAR,GETDATE(),112)
+    SET @Identity = NEXT VALUE FOR [Orders].[OrderSchemaSeq]
+
+	SET @Schema = (@NewCode + RIGHT('000000'+CONVERT(VARCHAR(7),@Identity),7))
 GO
 
 --訂單主資料表
@@ -167,41 +186,6 @@ CREATE TABLE [Events].[EventDatabaseErrorLog] (
 GO
 
 
---取得新一筆訂單要儲存的訂單編號 (yyyyMMdd9999999)
-CREATE FUNCTION [Orders].[GetOrderSchema]()
-	RETURNS CHAR(15)
-AS
-BEGIN
-	DECLARE @Schema CHAR(15)
-	DECLARE @LastCode CHAR(8)
-	DECLARE @LastIdentity CHAR(7)
-	DECLARE @NewCode CHAR(8)
-	DECLARE @Identity INT
-
-	-- SET @Schema = (
-		-- SELECT TOP(1) [Schema] FROM [Orders].[OrderMains]
-		-- ORDER BY [No] DESC
-	-- )
-	SET @Schema = (
-		SELECT TOP(1) [Schema] 
-		FROM [Orders].[OrderMains]
-		ORDER BY [Schema] DESC
-	)
-
-	SET @NewCode = CONVERT(VARCHAR,GETDATE(),112)
-	SET @LastCode = LEFT(@Schema,8)
-	SET @LastIdentity = RIGHT(@Schema,7)
-
-	SET @Identity = 0
-
-	If @NewCode = @LastCode 
-		SET @Identity = CONVERT(INT,@LastIdentity)
-
-	SET @Identity = @Identity + 1
-
-	RETURN (@NewCode + RIGHT('000000'+CONVERT(VARCHAR(7),@Identity),7))
-END
-GO
 
 /* 新增一筆購買紀錄的 StoredProcedure */
 CREATE PROCEDURE [Events].[AddEventBuying]
@@ -281,6 +265,13 @@ CREATE TYPE [Orders].[OrderDetails]
 		[SellPrice]		SMALLMONEY,
 		[Quantity]		SMALLINT
 	)
+GO
+
+--重設訂單流水號序列 ex: 每天重設
+CREATE PROCEDURE [Orders].[ResetOrderSchemaSeq]
+AS
+    ALTER SEQUENCE [Orders].[OrderSchemaSeq]
+    RESTART WITH 1
 GO
 
 --取得指定商品型號的有效庫存
