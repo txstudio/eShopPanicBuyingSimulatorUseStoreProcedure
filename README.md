@@ -5,7 +5,7 @@
 本專案使用資料庫與程式語言如下
 
 - [Microsoft SQL Server in Docker](https://hub.docker.com/r/microsoft/mssql-server-linux/)
-- [.NET Core ConsoleApplication 2.1](https://docs.microsoft.com/zh-tw/dotnet/core/)
+- [.NET Core 2.1 ConsoleApplication](https://docs.microsoft.com/zh-tw/dotnet/core/)
 
 此範例會有建立資料庫環境使用的 T-SQL 指令碼與模擬大量使用者操作的主控台應用程式，如下圖
 
