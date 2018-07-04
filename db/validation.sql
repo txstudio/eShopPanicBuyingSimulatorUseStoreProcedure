@@ -5,14 +5,17 @@
 ;WITH [OrderTable] AS (
 	SELECT b.[No]
 		,b.[Schema]
+		,b.[Name]
 		,SUM(a.[Quantity]) [TotalOrderQuantity]
 	FROM [Orders].[OrderDetails] a
 		INNER JOIN [Products].[ProductMains] b ON a.[ProductNo] = b.[No]
 	GROUP BY b.[No]
 		,b.[Schema]
+		,b.[Name]
 )
 SELECT a.[No]
 	,a.[Schema]
+	,a.[Name]
 	,b.[Storage]
 	,a.[TotalOrderQuantity]
 FROM [OrderTable] a
