@@ -121,6 +121,7 @@ CREATE TABLE [Orders].[OrderMains]
 (
 	[No]			INT,
 	[Schema]		CHAR(15),
+    [OrderDate]     DATETIMEOFFSET DEFAULT (SYSDATETIMEOFFSET()),
 	
 	[MemberGUID]	UNIQUEIDENTIFIER,
 	[IsDeleted]		BIT,
