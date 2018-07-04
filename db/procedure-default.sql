@@ -111,7 +111,7 @@ AS
 			,[IsDeleted]
 		) VALUES (
 			@OrderNo
-			,@Schame
+			,@Schema
 			,@MemberGUID
 			,0
 		)
