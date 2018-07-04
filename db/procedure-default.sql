@@ -90,10 +90,8 @@ AS
 		END
 					
         --取得訂單建立序號
-		SET @OrderNo = NEXT VALUE FOR [Orders].[OrderMainSeq]		
-		SET @Schame = (
-			SELECT [Orders].[GetOrderSchema]()
-		)
+		SET @OrderNo = NEXT VALUE FOR [Orders].[OrderMainSeq]
+        EXEC [Orders].[GetOrderSchema] @Schema OUT
 	
         --新增訂單內容
 		INSERT INTO [Orders].[OrderMains] (
