@@ -1,3 +1,13 @@
+/*
+--重新設定商品庫存資訊
+DELETE FROM [Products].[ProductStorages]
+GO
+
+INSERT INTO [Products].[ProductStorages] ([ProductNo],[Storage])
+	VALUES (1,75),(2,150),(3,125)
+GO
+*/
+
 --取得指定商品型號的有效庫存
 ALTER FUNCTION [Products].[GetProductValidStorage]
 (
