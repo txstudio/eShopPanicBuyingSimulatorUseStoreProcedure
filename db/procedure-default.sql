@@ -79,7 +79,7 @@ AS
 		BEGIN TRANSACTION
 		
 		DECLARE @OrderNo INT
-		DECLARE @Schame CHAR(15)
+		DECLARE @Schema CHAR(15)
 		
 		SET @IsSuccess = 0
 		
