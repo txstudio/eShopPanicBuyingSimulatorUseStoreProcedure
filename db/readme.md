@@ -56,3 +56,6 @@
 
 [AdvantureWorks in Github](https://github.com/Microsoft/sql-server-samples/blob/master/samples/databases/adventure-works/oltp-install-script/instawdb.sql#L203)
 
+為何使用 StoreProcedure 提供訂單編號
+
+原本使用 Scalar-Valued Functions 提供訂單的訂單編號，在大量呼叫的時候會出現訂單代碼重複的問題造成錯誤讓 Transaction Rollback ，改使用 Sequence 賦予訂單序號，避免出現唯一條件限制的資料庫 Exception，不過儲存順序跟主索引可能會有所差異。
