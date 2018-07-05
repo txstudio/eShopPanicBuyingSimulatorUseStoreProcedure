@@ -23,7 +23,7 @@
 
 ## 指令碼說明
 
-### procedure-default.sql
+#### procedure-default.sql
 
 將商品庫存量與目前訂單量進行關聯
 
@@ -35,7 +35,7 @@
 
 當訂單在未出貨的狀態時取消，不需回補該訂單的庫存，因查詢結果會自動補回此數量
 
-### procedure-correct.sql
+#### procedure-correct.sql
 
 商品庫存為庫存資料表儲存的數值
 
