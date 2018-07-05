@@ -20,3 +20,12 @@ docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Pa$$w0rd' -p 1433:1433 -d
 ## .NET Core 應用程式
 
 使用 ADO.NET 呼叫資料庫物件模擬大量使用者訂購行為
+
+## 了解更多
+
+資料庫與應用程式更詳細說明請參考對應資料夾內的說明 (readme.md) 檔案
+
+|資料夾|對應內容|
+|--|--|
+|[db](tree/master/db)|Transact-SQL 指令檔|
+|[netcoreapp/eShop.Loader](tree/master/netcoreapp/eShop.Loader)|.NET Core 主控台應用程式|
