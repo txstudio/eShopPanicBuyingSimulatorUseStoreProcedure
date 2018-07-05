@@ -29,3 +29,12 @@ dotnet eShop.Loader.dll -t 20 -e 13:01
 
 每一個執行緒會建立一個使用者編號並隨機購買商品或數量，重複到沒有商品可以購買就停止
 
+## 附件
+
+應用程式執行截圖
+
+![等待系統時間開始執行模擬](https://raw.githubusercontent.com/txstudio/eShopPanicBuyingSimulatorUseStoreProcedure/master/screenshot/default-case-loading-test-2500-tasks.gif)
+
+![執行中](https://raw.githubusercontent.com/txstudio/eShopPanicBuyingSimulatorUseStoreProcedure/master/screenshot/default-case-loading-test-operating.gif)
+
+![應用程式執行完成](https://raw.githubusercontent.com/txstudio/eShopPanicBuyingSimulatorUseStoreProcedure/master/screenshot/default-case-loading-test-finish.gif)
