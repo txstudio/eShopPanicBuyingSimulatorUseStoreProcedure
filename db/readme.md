@@ -51,3 +51,8 @@
 資料庫物件截圖
 
 ![Database object](https://raw.githubusercontent.com/txstudio/eShopPanicBuyingSimulatorUseStoreProcedure/master/screenshot/db-objects.gif)
+
+預存程序執行錯誤的事件紀錄方法從 AdvantureWork 範例程式碼取得，請參考下列連結
+
+[AdvantureWorks in Github](https://github.com/Microsoft/sql-server-samples/blob/master/samples/databases/adventure-works/oltp-install-script/instawdb.sql#L203)
+
