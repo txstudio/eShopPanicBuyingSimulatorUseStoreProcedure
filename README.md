@@ -27,5 +27,5 @@ docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Pa$$w0rd' -p 1433:1433 -d
 
 |資料夾|對應內容|
 |--|--|
-|[db](tree/master/db)|Transact-SQL 指令檔|
-|[netcoreapp/eShop.Loader](tree/master/netcoreapp/eShop.Loader)|.NET Core 主控台應用程式|
+|[db](/txstudio/eShopPanicBuyingSimulatorUseStoreProcedure/tree/master/db)|Transact-SQL 指令檔|
+|[netcoreapp/eShop.Loader](/txstudio/eShopPanicBuyingSimulatorUseStoreProcedure/tree/master/netcoreapp/eShop.Loader)|.NET Core 主控台應用程式|
