@@ -9,9 +9,7 @@
 
 此範例會有建立資料庫環境使用的 T-SQL 指令碼與模擬大量使用者操作的主控台應用程式，如下圖
 
-
-
-## 關於資料庫
+## 資料庫
 
 範例資料庫使用 Microsoft SQL Server in Docker 的 Image 建立，可以使用下列指令碼啟用 Container
 
@@ -21,4 +19,4 @@ docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Pa$$w0rd' -p 1433:1433 -d
 
 ## .NET Core 應用程式
 
-
+使用 ADO.NET 呼叫資料庫物件模擬大量使用者訂購行為
