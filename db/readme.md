@@ -13,7 +13,7 @@
 
 建立結果圖片請參考
 
-[附件 > 資料庫物件截圖](https://github.com/txstudio/eShopPanicBuyingSimulatorUseStoreProcedure/new/master/db#%E9%99%84%E4%BB%B6)
+[附件>資料庫物件截圖](#%E9%99%84%E4%BB%B6)
 
 ## 建置資料庫環境流程
 執行 init.sql 指令碼後依情境執行 procedure-default.sql 或 procedure-correct.sql，在執行完成負載模擬後執行 validation.sql 驗證是否有商品發生超賣情形。
