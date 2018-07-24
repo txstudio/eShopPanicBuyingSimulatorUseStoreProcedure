@@ -182,7 +182,7 @@ CREATE TABLE [Events].[EventDatabaseErrorLog] (
 	[ErrorLine]         INT,
 	[ErrorMessage]      NVARCHAR(MAX),
 	
-    CONSTRAINT [PK_dbo_DatabaseErrorLog-0_No] PRIMARY KEY ([No] ASC)
+    CONSTRAINT [pk_EventDatabaseErrorLog] PRIMARY KEY ([No] ASC)
 )
 GO
 
