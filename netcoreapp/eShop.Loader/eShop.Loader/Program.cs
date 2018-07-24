@@ -19,7 +19,7 @@ namespace eShop.Loader
 
         static void Main(string[] args)
         {
-            //args = new string[] { "-t", "2500", "-e", "11:37" };
+            //args = new string[] { "-t", "2500" };
 
             SetArgs(_option, args);
 
@@ -163,9 +163,6 @@ namespace eShop.Loader
                     {
                         case "-t":
                             option.TaskNumber = args[_index];
-                            break;
-                        case "-e":
-                            option.StartTime = args[_index];
                             break;
                         default:
                             break;

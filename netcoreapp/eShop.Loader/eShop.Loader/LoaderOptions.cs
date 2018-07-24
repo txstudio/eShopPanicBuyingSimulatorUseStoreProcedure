@@ -4,7 +4,16 @@ namespace eShop.Loader
 {
     internal class LoaderOptions
     {
-        public string StartTime { get; set; }
+        public string StartTime
+        {
+            get
+            {
+                //開始時間預設為當下時間 +70秒
+                var _executeTime = DateTime.Now.AddSeconds(70);
+
+                return String.Format("{0:HH:mm}", _executeTime);
+            }
+        }
         public string TaskNumber { get; set; }
         public int Task
         {
