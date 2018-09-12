@@ -35,19 +35,26 @@ namespace eShop.Loader
 
             Stopwatch _stopwatch = new Stopwatch();
 
-            while(_exit == false)
+            while (_exit == false)
             {
+                _exit = true;
+
                 for (int i = 0; i < _option.Task; i++)
                 {
                     if (_tasks[i].Status == TaskStatus.Running)
                         _stopwatch.Start();
 
-                    if (_tasks[i].Status != TaskStatus.RanToCompletion)
+                    if (_tasks[i].Status == TaskStatus.Running 
+                        || _tasks[i].Status == TaskStatus.WaitingToRun)
                     {
                         Thread.Sleep(100);
+                        _exit = false;
                         continue;
                     }
-                }  
+                }
+
+                if (_exit == false)
+                    continue;
 
                 _exit = true;
                 _stopwatch.Stop();
