@@ -7,6 +7,9 @@
 - [Microsoft SQL Server in Docker](https://hub.docker.com/r/microsoft/mssql-server-linux/)
 - [.NET Core 2.1 ConsoleApplication](https://docs.microsoft.com/zh-tw/dotnet/core/)
 
+> 本範例程式碼有一個對應的 Entity Framework Core 版本，並使用 Code First 建立資料庫
+> [txstudio/eShopPanicBuyingSimulatorUseEFCore](https://github.com/txstudio/eShopPanicBuyingSimulatorUseEFCore)
+
 ## 資料庫
 
 範例資料庫使用 Microsoft SQL Server in Docker 的 Image 建立，可以使用下列指令碼啟用 Container
