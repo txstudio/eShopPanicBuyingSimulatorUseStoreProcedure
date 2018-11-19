@@ -119,7 +119,7 @@ namespace eShop.Loader
                             _builder.Clear();
                             _builder.AppendFormat("會員 {0} 完成作業", _memberGUID);
 
-                            _eShopDb.AddEventBuying(_memberGUID, _builder.ToString(), true);
+                            _eShopDb.AddEventBuying(_memberGUID, _builder.ToString(), true, 0);
 
                             Console.WriteLine(_builder.ToString());
                             break;

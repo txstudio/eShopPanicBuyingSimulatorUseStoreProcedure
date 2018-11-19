@@ -116,7 +116,7 @@ namespace eShop.Loader
         }
 
         /// <summary>新增指定使用者的購買資訊</summary>
-        public void AddEventBuying(Guid memberGuid, string content, bool isSuccess, int elapsed)
+        public void AddEventBuying(Guid memberGuid, string content, bool isSuccess, long elapsed)
         {
             using (SqlConnection _conn
                    = new SqlConnection(this._connectionString))
