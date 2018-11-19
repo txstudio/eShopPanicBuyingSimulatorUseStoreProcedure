@@ -162,6 +162,7 @@ CREATE TABLE [Events].[EventBuying]
 
     [MemberGUID]    UNIQUEIDENTIFIER,
     [Content]       NVARCHAR(500),
+	[Elapsed]		INT,
     [IsSuccess]     BIT,
 
     CONSTRAINT [pk_EventBuying] PRIMARY KEY ([No])
@@ -192,16 +193,19 @@ GO
 CREATE PROCEDURE [Events].[AddEventBuying]
     @MemberGUID     UNIQUEIDENTIFIER,
     @Content        NVARCHAR(500),
+	@Elapsed		INT,
     @IsSuccess      BIT
 AS
 
     INSERT INTO [Events].[EventBuying] (
         [MemberGUID]
         ,[Content]
+		,[Elapsed]
         ,[IsSuccess]
     ) VALUES (
         @MemberGUID
         ,@Content
+		,@Elapsed
         ,@IsSuccess
     )
 GO
