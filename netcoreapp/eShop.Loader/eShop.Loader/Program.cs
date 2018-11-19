@@ -83,8 +83,10 @@ namespace eShop.Loader
             ProductMains _product;
             List<OrderItem> _items;
             StringBuilder _builder;
+            Stopwatch _stopwatch;
 
             _builder = new StringBuilder();
+            _stopwatch = new Stopwatch();
 
             while (true)
             {
@@ -132,7 +134,12 @@ namespace eShop.Loader
                                 SellPrice = _product.SellPrice
                             });
 
+                _stopwatch.Reset();
+                _stopwatch.Start();
+
                 _orderResult = _eShopDb.AddOrder(_memberGUID, _items);
+
+                _stopwatch.Stop();
 
                 //訂購商品
                 _builder.Clear();
@@ -146,7 +153,10 @@ namespace eShop.Loader
                 else
                     _builder.Append("失敗 ...");
 
-                _eShopDb.AddEventBuying(_memberGUID, _builder.ToString(), _orderResult);
+                _eShopDb.AddEventBuying(_memberGUID
+                                        , _builder.ToString()
+                                        , _orderResult
+                                        , _stopwatch.ElapsedMilliseconds);
 
                 Console.WriteLine(_builder.ToString());
             }

@@ -116,7 +116,7 @@ namespace eShop.Loader
         }
 
         /// <summary>新增指定使用者的購買資訊</summary>
-        public void AddEventBuying(Guid memberGuid, string content, bool isSuccess)
+        public void AddEventBuying(Guid memberGuid, string content, bool isSuccess, int elapsed)
         {
             using (SqlConnection _conn
                    = new SqlConnection(this._connectionString))
@@ -131,10 +131,12 @@ namespace eShop.Loader
 
                 _cmd.Parameters.Add("@MemberGUID", SqlDbType.UniqueIdentifier);
                 _cmd.Parameters.Add("@Content", SqlDbType.NVarChar, 500);
+                _cmd.Parameters.Add("@Elapsed", SqlDbType.Int);
                 _cmd.Parameters.Add("@IsSuccess", SqlDbType.Bit);
 
                 _cmd.Parameters["@MemberGUID"].Value = memberGuid;
                 _cmd.Parameters["@Content"].Value = content;
+                _cmd.Parameters["@Elapsed"].Value = elapsed;
                 _cmd.Parameters["@IsSuccess"].Value = isSuccess;
 
                 _conn.Open();
